@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
     
-    Hexo</title>
+    Hogwarts library</title>
   
     <link rel="shortcut icon" href="/favicon.ico">
   
@@ -45,9 +45,9 @@
       <div class="video-overlay"></div>
     </div>
     <div class="video-inner text-center text-white">
-      <h1><a href="/">Hexo</a></h1>
+      <h1><a href="/">Hogwarts library</a></h1>
       <p></p>
-      <div><img src="/images/hexo-inverted.svg" class="brand" alt="Hexo"></div>
+      <div><img src="/images/hexo-inverted.svg" class="brand" alt="Hogwarts library"></div>
     </div>
     <div class="video-learn-more">
       <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
@@ -62,7 +62,7 @@
       <h1 class="page-type-title"></h1>
       
         
-          <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+          <article id="post-关于二叉树还原和遍历的一道综合题目" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
     <div class="article-inner">
         
@@ -70,7 +70,7 @@
                 
   
     <h2 itemprop="name">
-      <a class="article-title" href="/2020/04/20/hello-world/">Hello World</a>
+      <a class="article-title" href="/2020/04/21/%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E8%BF%98%E5%8E%9F%E5%92%8C%E9%81%8D%E5%8E%86%E7%9A%84%E4%B8%80%E9%81%93%E7%BB%BC%E5%90%88%E9%A2%98%E7%9B%AE/">关于二叉树还原和遍历的一道综合题目</a>
     </h2>
   
   
@@ -83,8 +83,8 @@
 
                 
                     <div class="article-meta">
-                        <a href="/2020/04/20/hello-world/" class="article-date">
-  <time datetime="2020-04-20T11:54:30.546Z" itemprop="datePublished">2020-04-20</time>
+                        <a href="/2020/04/21/%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E8%BF%98%E5%8E%9F%E5%92%8C%E9%81%8D%E5%8E%86%E7%9A%84%E4%B8%80%E9%81%93%E7%BB%BC%E5%90%88%E9%A2%98%E7%9B%AE/" class="article-date">
+  <time datetime="2020-04-21T05:01:21.000Z" itemprop="datePublished">2020-04-21</time>
 </a>
                             
                     </div>
@@ -99,24 +99,613 @@
                                             
 
                                                 
-                                                                    <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+                                                                    <hr>
+<p>author:Sirius tjq</p>
+<p><strong><em>题干：</em></strong><br>输入树的前序和中序遍历，以空格分开，输出这个树的后序遍历<br><img src="https://img-blog.csdnimg.cn/20200420223128699.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODEwNzMxNg==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><strong><em>思路：</em></strong><br>这种题属于对树的操作的综合性题目，首先根据树的前序和中序遍历得到这个树，也就是所谓的树还原。然后再进行树的后序遍历即可。</p>
+<p>根据上面的分析，得到下面的算法源码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">给定一个树的前序和中序，输出这个树的后序</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">输入前序和后序以空格分开</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">item70</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        Scanner ss = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str1 = ss.next();</span><br><span class="line">        String str2 = ss.next();</span><br><span class="line">        String[] pre = str1.split(<span class="string">""</span>);</span><br><span class="line">        String[] inorder = str2.split(<span class="string">""</span>);</span><br><span class="line">        lastorder(rebuilt(pre,inorder));</span><br><span class="line">        System.out.println(sb.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//还原树</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TreeNode1 <span class="title">rebuilt</span><span class="params">(String[] pre, String[] inoeder)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pre.length==<span class="number">0</span> || inoeder.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode1 root = <span class="keyword">new</span> TreeNode1(pre[<span class="number">0</span>]);<span class="comment">//根据前序遍历确定根节点</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;inoeder.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(inoeder[i].equals(pre[<span class="number">0</span>]))&#123;</span><br><span class="line">                root.left = rebuilt(Arrays.copyOfRange(pre,<span class="number">1</span>,i+<span class="number">1</span>),Arrays.copyOfRange(inoeder,<span class="number">0</span>,i));<span class="comment">//左子树</span></span><br><span class="line">                root.right = rebuilt(Arrays.copyOfRange(pre,i+<span class="number">1</span>,pre.length),Arrays.copyOfRange(inoeder,i+<span class="number">1</span>,inoeder.length));<span class="comment">//右子树</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//后序遍历</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">lastorder</span><span class="params">(TreeNode1 node)</span></span>&#123;</span><br><span class="line">       <span class="keyword">if</span>(node!=<span class="keyword">null</span>)&#123;</span><br><span class="line">           lastorder(node.left);</span><br><span class="line">           lastorder(node.right);</span><br><span class="line">           sb.append(node.val);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/04/21/%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E8%BF%98%E5%8E%9F%E5%92%8C%E9%81%8D%E5%8E%86%E7%9A%84%E4%B8%80%E9%81%93%E7%BB%BC%E5%90%88%E9%A2%98%E7%9B%AE/" data-id="ck99fxeny0009sjtd4drr25by" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+    </div>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+    
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+                
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+</article>
+        
+          <article id="post-剑指offer-item9-变态跳台阶" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/21/%E5%89%91%E6%8C%87offer-item9-%E5%8F%98%E6%80%81%E8%B7%B3%E5%8F%B0%E9%98%B6/">剑指offer----item9 变态跳台阶</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/21/%E5%89%91%E6%8C%87offer-item9-%E5%8F%98%E6%80%81%E8%B7%B3%E5%8F%B0%E9%98%B6/" class="article-date">
+  <time datetime="2020-04-21T05:00:23.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author: Sirius tjq</p>
+<p><strong><em>题干</em></strong><br>一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
+<p><strong><em>思路：</em></strong><br>这只青蛙不是简单的青蛙了，一次能跳到n个台阶，但是思路还是动态规划的思路，只不过是动态规划转移方程变了：<br>f(n)=f(n-1)+f(n-2)+….+1</p>
+<p>具体代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">JumpFloorII</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> dp[]=<span class="keyword">new</span> <span class="keyword">int</span>[target+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;target+<span class="number">1</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i-<span class="number">1</span>;j&gt;=<span class="number">0</span>;j--)&#123;</span><br><span class="line">                dp[i]=dp[i]+dp[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[target];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可见平时学习的举一反三是很重要的！</p>
 
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/04/20/hello-world/" data-id="ck99c8vc40000wmtda9jq5206" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/04/21/%E5%89%91%E6%8C%87offer-item9-%E5%8F%98%E6%80%81%E8%B7%B3%E5%8F%B0%E9%98%B6/" data-id="ck99fwb5e0008sjtddirj6cri" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-剑指offer系列-item8-跳台阶" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item8-%E8%B7%B3%E5%8F%B0%E9%98%B6/">剑指offer系列----item8 跳台阶</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item8-%E8%B7%B3%E5%8F%B0%E9%98%B6/" class="article-date">
+  <time datetime="2020-04-21T04:59:43.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author: Sirius tjq</p>
+<p><strong><em>题干：</em></strong><br>一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</p>
+<p><strong><em>思路：</em></strong><br>这道题就是斐波那契数列，也就是动态规划。解法和item7一致，可以去查看我的上一篇博客。这里就不再赘述，直接给出代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">JumpFloor</span><span class="params">(<span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(target==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> dp[] = <span class="keyword">new</span> <span class="keyword">int</span>[target+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;target+<span class="number">1</span>;i++)&#123;</span><br><span class="line">            dp[i]=dp[i-<span class="number">1</span>]+dp[i-<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[target];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item8-%E8%B7%B3%E5%8F%B0%E9%98%B6/" data-id="ck99fvg8z0007sjtd4eircepd" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-剑指offer系列-item7-斐波那契数列" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item7-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/">剑指offer系列----item7 斐波那契数列</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item7-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" class="article-date">
+  <time datetime="2020-04-21T04:58:56.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author: Sirius tjq</p>
+<p><strong><em>题干：</em></strong><br>大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。<br>n&lt;=39</p>
+<p><strong><em>思路：</em></strong><br>其实，斐波那契数列算是动态规划算法的究极简单例子之一了。目前的动态规划算法中的起始例子大多都是从斐波那契数列讲起。我这里就多啰嗦几句，说一下斐波那契数列。</p>
+<p>F（n）= F（n-1）+ F（n-2），且F（1）=F（2）=1；</p>
+<p>这就是斐波那契数列的通项式子。只不过这道题n是从0开始的而已。斐波那契数列之所以经常被放在动态规划当中讲是因为斐波那契数列的每一项都可以看做是某一个特定的状态，而这个状态是由过去的状态（n-1、n-2）来决定的。同时值得一提的是，这个状态还会影响未来的状态。也就是将一个大的问题分解成了若干个小问题的和的形式，这种问题一般是由动态规划来解决的。</p>
+<p>使用动态规划求解问题，最重要的就是确定动态规划三要素：</p>
+<pre><code>（1）问题的阶段 （2）每个阶段的状态
+
+（3）从前一个阶段转化到后一个阶段之间的递推关系。</code></pre><p>递推关系必须是从==次小的问题开始到较大的问题之间的转化==，从这个角度来说，动态规划往往可以用递归程序来实现，不过因为递推可以充分利用前面保存的子问题的解来减少重复计算，所以对于大规模问题来说，有递归不可比拟的优势，这也是动态规划算法的核心之处。</p>
+<p>确定了动态规划的这三要素，整个求解过程就可以用一个==最优决策表==来描述，最优决策表是一个二维表，其中行表示决策的阶段，列表示问题状态，表格需要填写的数据一般对应此问题在==某个阶段某个状态下的最优值==（如最短路径，最长公共子序列，最大价值等），填表的过程就是根据递推关系，从1行1列开始，以行或者列优先的顺序，依次填写表格，最后根据整个表格的数据通过简单的取舍或者运算求得问题的最优解。<br>递推公式或者叫做动态规划状态转移公式：<br>          f(n,m)=max{f(n-1,m), f(n-1,m-w[n])+P(n,m)}</p>
+<p>说了这么多，其实就是要告诉大家这道题，有两种解法：<br>1、传统递归<br>2、利用动态规划完成</p>
+<p>具体代码见下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Fibonacci1</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span> || n==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Fibonacci1(n-<span class="number">1</span>)+Fibonacci1(n-<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//动态规划实现</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">Fibonacci</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(n==<span class="number">0</span> || n==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> dp[] = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];<span class="comment">//主要初始化数组的长度</span></span><br><span class="line">        dp[<span class="number">0</span>]=<span class="number">1</span>;<span class="comment">//初始化动态规划数组</span></span><br><span class="line">        dp[<span class="number">1</span>]=<span class="number">1</span>;<span class="comment">//初始化动态规划数组</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;n+<span class="number">1</span>;i++)&#123;</span><br><span class="line">            dp[i]=dp[i-<span class="number">1</span>]+dp[i-<span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们来看一下采用递归方法和动态规划方法的时间长短：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line">采用递归耗时<span class="number">1.0</span>毫秒</span><br><span class="line"><span class="number">5</span></span><br><span class="line">采用动态规划耗时<span class="number">0.0</span>毫秒</span><br></pre></td></tr></table></figure>
+<p>明显采用递归耗时更多，因为递归有很多重复计算，而动态规划直接采用动态规划数组承载了过去的状态，即动态规划是在用空间换时间的一种算法，在内存空间较为宽裕而对运行时间要求比较高的场景中应用广泛。</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item7-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" data-id="ck99fuffg0006sjtd5po4e2g5" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-剑指offer系列-item6-旋转数组的最小值" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item6-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC/">剑指offer系列----item6 旋转数组的最小值</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item6-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC/" class="article-date">
+  <time datetime="2020-04-21T04:58:12.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author: Sirius tjq</p>
+<p><strong><em>题干：</em></strong><br>把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。<br>输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。<br>例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。<br>NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。</p>
+<p><strong><em>思路：</em></strong><br>这种题典型的纸老虎，题干一通瞎吹，高大上的不行，实际就一数组中的最小值求解。我一开始也觉得暗藏玄机，但是仔细一分析，首先旋转数组的旋转规则没有，其次旋转数组的原生数组状态也没有，所以这道题就是在侮辱我的智商，就是简简单单的输出数组中的最小值。</p>
+<p>详细代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minNumberInRotateArray</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> min=array[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(array.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;array.length;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(array[i]&lt;min)&#123;</span><br><span class="line">                    min=array[i];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> min;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以说，把题干的外套拔下来，很重要！</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item6-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC/" data-id="ck99fti6k0005sjtd7qmk6e6j" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-剑指offer系列-item5-用两个栈实现队列" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item5-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/">剑指offer系列----item5 用两个栈实现队列</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item5-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/" class="article-date">
+  <time datetime="2020-04-21T04:57:12.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author: Sirius tjq</p>
+<p><strong><em>题干：</em></strong><br>如题所示，利用两个栈实现队列。首先明确一点，Java中是没有队列这种数据结构的，只有Queue这个抽象类，我们一般是用Collection集合类下面的LinkedList来模拟队列这种数据结构。</p>
+<p><strong><em>思路：</em></strong><br>好了，扯了那么多，回归正题。栈这种数据结构的特点是先进后出，而队列则是先进先出。那么用栈来模拟实现队列的方法就是一个栈用来加入元素，另外一个栈来pop元素。具体而言：</p>
+<p>stack1：所有的队列push操作，全部加到这个stack内；<br>stack2：当队列要执行pop操作时，先判断stack2是否为空。为空则将stack1内部所有的元素pop出来再依序push进入stack2中，然后再stack2中执行pop操作即可。不为空则直接对stack2执行pop操作。</p>
+<p>具体实现代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">item5</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    Stack&lt;Integer&gt; stack1 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line">    Stack&lt;Integer&gt; stack2 = <span class="keyword">new</span> Stack&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(stack2.empty())&#123;</span><br><span class="line">            <span class="keyword">while</span> (!stack1.empty())&#123;</span><br><span class="line">                stack2.push(stack1.pop());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack2.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这么看来，数据结构还是很有研究性的~~</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item5-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/" data-id="ck99fs6rn0004sjtdcgpgh8y5" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-剑指offer系列-item4-还原树" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item4-%E8%BF%98%E5%8E%9F%E6%A0%91/">剑指offer系列----item4 还原树</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item4-%E8%BF%98%E5%8E%9F%E6%A0%91/" class="article-date">
+  <time datetime="2020-04-21T04:56:08.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author: Sirius tjq</p>
+<p>题目描述</p>
+<p>输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。</p>
+<p><strong><em>思路：</em></strong><br>其实就是从前序中找出根节点，再对应着去中序中找左子树和右子树，关键是递归的问题，值得记录。<br>例如：<br>前序序列{1,2,4,7,3,5,6,8} = pre<br>中序序列{4,7,2,1,5,3,8,6} = in</p>
+<ol>
+<li>根据当前前序序列的第一个结点确定根结点，为 1 </li>
+<li>找到 1 在中序遍历序列中的位置，为 in[3] </li>
+<li>切割左右子树，则 in[3] 前面的为左子树， in[3] 后面的为右子树 </li>
+<li>则切割后的左子树前序序列为：{2,4,7}，切割后的左子树中序序列为：{4,7,2}；切割后的右子树前序序列为：{3,5,6,8}，切割后的右子树中序序列为：{5,3,8,6} </li>
+<li>对子树分别使用同样的方法分解</li>
+</ol>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">reConstructBinaryTree</span><span class="params">(<span class="keyword">int</span> [] pre,<span class="keyword">int</span> [] in)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (pre.length == <span class="number">0</span> || in.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode(pre[<span class="number">0</span>]);</span><br><span class="line">        <span class="comment">// 在中序中找到前序的根</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; in.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (in[i] == pre[<span class="number">0</span>]) &#123;</span><br><span class="line">                <span class="comment">// 左子树，注意 copyOfRange 函数，左闭右开</span></span><br><span class="line">                root.left = reConstructBinaryTree(Arrays.copyOfRange(pre, <span class="number">1</span>, i + <span class="number">1</span>), Arrays.copyOfRange(in, <span class="number">0</span>, i));</span><br><span class="line">                <span class="comment">// 右子树，注意 copyOfRange 函数，左闭右开</span></span><br><span class="line">                root.right = reConstructBinaryTree(Arrays.copyOfRange(pre, i + <span class="number">1</span>, pre.length), Arrays.copyOfRange(in, i + <span class="number">1</span>, in.length));</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item4-%E8%BF%98%E5%8E%9F%E6%A0%91/" data-id="ck99fqu8d0003sjtd7fgk9tg0" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-剑指offer系列-item3字符串空格替换" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item3%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%A9%BA%E6%A0%BC%E6%9B%BF%E6%8D%A2/">剑指offer系列----item3字符串空格替换</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item3%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%A9%BA%E6%A0%BC%E6%9B%BF%E6%8D%A2/" class="article-date">
+  <time datetime="2020-04-21T04:55:22.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author: Sirius tjq</p>
+<p>题干：<br>请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。</p>
+<p><strong><em>分析：</em></strong><br>        这题属于简单题，思路有2.其一利用额外的空间，直接再创建一个StringBuffer，将这个Buffer中的内容向其中添加即可，遇到空格添加”%20“，反之添加其原本的内容。其二即为在原buffer上进行修改，直接在原位置上用replace替换为“%20”。<br>        注意这里容易发生错误的是repalce方法，看下面两个例子：</p>
+<p>我们想要将a替换为t</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">     sb.append(<span class="string">"dasd"</span>);</span><br><span class="line">     <span class="comment">//sb.deleteCharAt(1);</span></span><br><span class="line">     sb.replace(<span class="number">1</span>,<span class="number">2</span>,<span class="string">"t"</span>);</span><br><span class="line">     System.out.println(sb.toString());</span><br></pre></td></tr></table></figure>
+<p>输出为dtsd，符合预期</p>
+<p>另外一种写法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">      sb.append(<span class="string">"dasd"</span>);</span><br><span class="line">      <span class="comment">//sb.deleteCharAt(1);</span></span><br><span class="line">      sb.replace(<span class="number">1</span>,<span class="number">1</span><span class="string">"t"</span>);</span><br><span class="line">      System.out.println(sb.toString());</span><br></pre></td></tr></table></figure>
+<p>输出为dtasd，并未实现替换，而是在原位置上进行了添加，为什么呢？原因很简单，StringBuffer的replace方法源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> StringBuffer <span class="title">replace</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end, String str)</span> </span>&#123;</span><br><span class="line">        toStringCache = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">super</span>.replace(start, end, str);<span class="comment">//继承其父类的replace方法</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>可见StringBuffer的replace方法是直接继承了其父类AbstractStringBuffer的replace方法，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> AbstractStringBuilder <span class="title">replace</span><span class="params">(<span class="keyword">int</span> start, <span class="keyword">int</span> end, String str)</span> </span>&#123;</span><br><span class="line"><span class="comment">//前面几个if都是为了增强方法的鲁棒性</span></span><br><span class="line">        <span class="keyword">if</span> (start &lt; <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(start);</span><br><span class="line">        <span class="keyword">if</span> (start &gt; count)<span class="comment">//count为StringBuffer中实际被使用的字符串个数</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(<span class="string">"start &gt; length()"</span>);</span><br><span class="line">        <span class="keyword">if</span> (start &gt; end)</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> StringIndexOutOfBoundsException(<span class="string">"start &gt; end"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (end &gt; count)</span><br><span class="line">            end = count;</span><br><span class="line">        <span class="keyword">int</span> len = str.length();</span><br><span class="line">        <span class="keyword">int</span> newCount = count + len - (end - start);</span><br><span class="line">        ensureCapacityInternal(newCount);</span><br><span class="line"></span><br><span class="line">        System.arraycopy(value, end, value, start + len, count - end);<span class="comment">//此为核心步骤，利用System.arraycopy方法，将原数组的扩容len长度，扩容起始位置为start，从end及其之后的元素也要相应的向后移动len长度，明显从end开始的内容都未被删除，而是直接后移了len长度，只有start到end-1的位置被替换</span></span><br><span class="line">        str.getChars(value, start);<span class="comment">//将目标字符串添加进刚刚扩容的空闲空间内，实现替换</span></span><br><span class="line">        count = newCount;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>具体方法1的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">replaceSpace</span><span class="params">(StringBuffer str)</span> </span>&#123;</span><br><span class="line">        StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;str.length();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(str.charAt(i)==<span class="string">' '</span>)&#123;</span><br><span class="line">                sb.append(<span class="string">"%20"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                sb.append(str.charAt(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>方法2如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">replaceSpace</span><span class="params">(StringBuffer str)</span> </span>&#123;</span><br><span class="line">        StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;str.length();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(str.charAt(i)==<span class="string">' '</span>)&#123;</span><br><span class="line">                sb.replace(i,i+<span class="number">1</span>,<span class="string">"%20"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>由此可见，这么简单的一道题目，如果深挖源码的话，还是有蛮多值得思考的东西的，与君共勉~</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item3%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%A9%BA%E6%A0%BC%E6%9B%BF%E6%8D%A2/" data-id="ck99fpfej0002sjtd61ok1zbt" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-剑指offer系列-item2-从尾到头打印链表" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item2-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/">剑指offer系列----item2 从尾到头打印链表</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item2-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/" class="article-date">
+  <time datetime="2020-04-21T04:53:42.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author: Sirius tjq</p>
+<p>题干：<br>输入一个链表，按链表从尾到头的顺序返回一个ArrayList。</p>
+<p><strong><em>分析：</em></strong><br>        链表查找比数组慢的多，这是因为<strong>链表的每个节点是存储在堆空间中，而数组则部分或全部存储在CPU缓存中，系统对CPU缓存的读取速度是内存的33倍</strong>（cpu缓存3个时钟周期，而内存的读取则需要100个时钟周期）。所以本题目绝不是先找到链表尾部然后开始添加到list中，而是从而到位添加到list中之后，再通过集合的操作类Collections进行反转即可。</p>
+<p>具体代码见下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Collections;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ArrayList&lt;Integer&gt; <span class="title">printListFromTailToHead</span><span class="params">(ListNode listNode)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">while</span> (listNode!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            list.add(listNode.val);</span><br><span class="line">            listNode=listNode.next;</span><br><span class="line">        &#125;</span><br><span class="line">        Collections.reverse(list);</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一点思考🤔，这道题目只是题干的方法返回值限定为了Integer，不然的话其实直接将ListNode加到List中也是完全可以的。</p>
+<p>方法很多，欢迎大家交流~~</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item2-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/" data-id="ck99fnnyq0001sjtdba9ufhkz" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+
+                
+
+</article>
+        
+          <article id="post-剑指offer系列-item1-二维数组的查找" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item1-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E6%9F%A5%E6%89%BE/">剑指offer系列----item1 二维数组的查找</a>
+    </h2>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item1-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E6%9F%A5%E6%89%BE/" class="article-date">
+  <time datetime="2020-04-21T04:52:02.000Z" itemprop="datePublished">2020-04-21</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author:Sirius tjq</p>
+<p>从今天开始，我将会更新剑指offer中的全部算法题目，当时第一遍刷题比较慢，花了一个月的时间，而且分析很多不太到位，今天开始重新总结一遍，并加深思考和拓展，争取做到举一反三。</p>
+<p><strong><em>题干：</em></strong></p>
+<p>在一个二维数组中（每个一维数组的长度相同），每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+<p><strong><em>思路：</em></strong></p>
+<p>这道题暴力法绝对超时，本质一看到有序，肯定想到了二分查找，二维数组有几行，就对每一行进行<strong>二分查找</strong>即可。我认为本题的关键在于，如何判断二维数组是空的：<br>二维数组为空，要检查三个部分:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">一、是数组首地址是否为空，即array==<span class="keyword">null</span>是否成立。</span><br><span class="line">二、是是否为&#123; &#125;，也就是array.length==<span class="number">0</span>的情况。</span><br><span class="line">三、是&#123;&#123; &#125;&#125;，这时array.length=<span class="number">1</span>，但是array[<span class="number">0</span>].length==<span class="number">0</span>。满足任意一个条件就可以返回<span class="keyword">false</span>了。</span><br><span class="line"></span><br><span class="line">即：</span><br><span class="line"><span class="keyword">if</span>(array==<span class="keyword">null</span>||array.length==<span class="number">0</span>||(array.length==<span class="number">1</span>&amp;&amp;array[<span class="number">0</span>].length==<span class="number">0</span>)) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在进行了上述分析之后，答案已经呼之欲出了，具体见下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> target, <span class="keyword">int</span> [][] array)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(array==<span class="keyword">null</span>||array.length==<span class="number">0</span>||(array.length==<span class="number">1</span>&amp;&amp;array[<span class="number">0</span>].length==<span class="number">0</span>))&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> n=array.length;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> []c:array)&#123;</span><br><span class="line">        <span class="keyword">if</span>(c[n/<span class="number">2</span>]&gt;target)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n/<span class="number">2</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(c[i]==target)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=n/<span class="number">2</span>;i&lt;n;i++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(c[i]==target)&#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/04/21/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item1-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E7%9A%84%E6%9F%A5%E6%89%BE/" data-id="ck99flaig0000sjtdhwtyduad" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -149,7 +738,7 @@
 </ul>
     </div>
     <ul class="list-inline">
-      <li>&copy; 2020 Hexo</li>
+      <li>&copy; 2020 Hogwarts library</li>
       <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
       <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
     </ul>
@@ -162,7 +751,7 @@
 <nav class="navbar">
   
     <div class="logo">
-      <a href="/"><img src="/images/hexo.svg" alt="Hexo"></a>
+      <a href="/"><img src="/images/hexo.svg" alt="Hogwarts library"></a>
     </div>
   
   <ul class="nav nav-main">
@@ -229,7 +818,6 @@
 
   
 <script src="/fancybox/jquery.fancybox.min.js"></script>
-
 
 
 
