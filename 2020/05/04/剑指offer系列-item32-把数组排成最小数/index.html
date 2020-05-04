@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    无关痛痒的一些闲话 |
+    剑指offer系列----item32 把数组排成最小数 |
     
     Hogwarts library</title>
   
@@ -31,7 +31,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-无关痛痒的一些闲话" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  <article id="post-剑指offer系列-item32-把数组排成最小数" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
     <div class="article-inner">
         
@@ -39,7 +39,7 @@
                 
   
     <h1 class="article-title" itemprop="name">
-      无关痛痒的一些闲话
+      剑指offer系列----item32 把数组排成最小数
     </h1>
   
   
@@ -52,8 +52,8 @@
 
                 
                     <div class="article-meta">
-                        <a href="/2020/04/25/%E6%97%A0%E5%85%B3%E7%97%9B%E7%97%92%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%B2%E8%AF%9D/" class="article-date">
-  <time datetime="2020-04-25T14:57:23.000Z" itemprop="datePublished">2020-04-25</time>
+                        <a href="/2020/05/04/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item32-%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E6%95%B0/" class="article-date">
+  <time datetime="2020-05-04T08:49:46.000Z" itemprop="datePublished">2020-05-04</time>
 </a>
                             
                     </div>
@@ -61,6 +61,8 @@
 
                         
                             
+    <div class="tocbot"></div>
+
 
 
 
@@ -74,28 +76,17 @@
                                             
 
                                                 
-                                                                    <p>这是一个被疫情打乱的2020</p>
-<p>以前全部的理所应当在现在都有些勉强</p>
-<p>最近发现可能生活真的需要一点的不一样</p>
-<p>每天三点一线  为了money</p>
-<p>真的快乐么</p>
-<p>还是说人生而就是为了赎罪</p>
-<p>我是一个很乐观的人</p>
-<p>但是乐观不代表没有悲观</p>
-<p>我会沮丧</p>
-<p>我会失望</p>
-<p>我在期待</p>
-<p>我也会害怕</p>
-<p>但是似乎每一个明天的我都会逐渐的释怀</p>
-<p>逐渐的忘记</p>
-<p>希望</p>
-<p>我能一直这样</p>
-<p>平安喜乐</p>
+                                                                    <hr>
+<p>author: Sirius tjq</p>
+<h2 id="题干："><a href="#题干：" class="headerlink" title="题干："></a>题干：</h2><p>输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。</p>
+<h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>把数组变成String的list，然后两个两个比较，因为s1+s2的长度和s2+s1的长度是一致的，所以如果s1+s2与s2+s1的大小判断只需要判从首个字符开始即可（所以调用的String类的compareTo方法），如果s1+s2&gt;s2+s1,OK，那么说明s2应该在s1的前面，具体代码见下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">PrintMinNumber</span><span class="params">(<span class="keyword">int</span> [] numbers)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> cc:numbers)&#123;</span><br><span class="line">            list.add(String.valueOf(cc));</span><br><span class="line">        &#125;</span><br><span class="line">        list.sort((S1,S2) -&gt; (S1+S2).compareTo(S2+S1));<span class="comment">//核心lambda表达式，具体可以去参考我的另外一篇博客</span></span><br><span class="line">        StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        <span class="keyword">for</span>(String ll:list)&#123;</span><br><span class="line">            sb.append(ll);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于Lamdba表达式，可以看我的另外一篇博客：<a href="https://blog.csdn.net/weixin_38107316/article/details/105918971" target="_blank" rel="noopener">Lambda表达式</a></p>
 
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://yoursite.com/2020/04/25/%E6%97%A0%E5%85%B3%E7%97%9B%E7%97%92%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%B2%E8%AF%9D/" data-id="ck9fqz2iq0001ertdbuqrg8qe" class="article-share-link">
+                                        <a data-url="http://yoursite.com/2020/05/04/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item32-%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E6%95%B0/" data-id="ck9s8te79000bb5tdclztehqn" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -107,19 +98,10 @@
         
   <nav class="article-nav">
     
-      <a href="/2020/04/26/%E5%89%91%E6%8C%87offer-item17-%E5%88%A4%E6%96%AD%E4%B8%80%E6%A3%B5%E6%A0%91%E6%98%AF%E4%B8%8D%E6%98%AF%E5%8F%A6%E5%A4%96%E4%B8%80%E6%A3%B5%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/" class="article-nav-link">
-        <strong class="article-nav-caption">Newer</strong>
-        <div class="article-nav-title">
-          
-            剑指offer系列----item17 判断一棵树是不是另外一棵树的子结构
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/04/23/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item16-%E5%90%88%E5%B9%B6%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/" class="article-nav-link">
+      <a href="/2020/05/04/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item31-%E4%BB%8E1%E5%88%B0n%E4%B8%AA%E6%95%B4%E6%95%B0%E4%B8%AD%EF%BC%8C%E5%8C%85%E5%90%AB1%E7%9A%84%E4%B8%AA%E6%95%B0%E6%9C%89%E5%87%A0%E4%B8%AA%EF%BC%9F/" class="article-nav-link">
         <strong class="article-nav-caption">Older</strong>
-        <div class="article-nav-title">剑指offer系列----item16 合并排序链表</div>
+        <div class="article-nav-title">剑指offer系列----item31 从1到n个整数中，包含1的个数有几个？</div>
       </a>
     
   </nav>

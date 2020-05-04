@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="为保证浏览效果，请尽量使用Chrome">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    剑指offer系列----item24 找出二叉树中路径之和为目标值的所有路径 |
+    
+    Hogwarts library</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-剑指offer-item24-找出二叉树中路径之和为目标值的所有路径" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      剑指offer系列----item24 找出二叉树中路径之和为目标值的所有路径
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/04/29/%E5%89%91%E6%8C%87offer-item24-%E6%89%BE%E5%87%BA%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E8%B7%AF%E5%BE%84%E4%B9%8B%E5%92%8C%E4%B8%BA%E7%9B%AE%E6%A0%87%E5%80%BC%E7%9A%84%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84/" class="article-date">
+  <time datetime="2020-04-29T11:25:00.000Z" itemprop="datePublished">2020-04-29</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author: Sirius tjq</p>
+<h2 id="题干："><a href="#题干：" class="headerlink" title="题干："></a>题干：</h2><p>输入一颗二叉树的根节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。<br>    路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。<br>    (注意: 在返回值的list中，数组长度大的数组靠前)</p>
+<h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>思路有二：<br>    1.将所有的root到叶子节点的路径找出来，建成list，并用val的累加值做key，用后者list当val，再去对比与目标值到hashmap中去找相匹配的key。<br>    2.找路径的时候就加上判断，小于target才继续向下，反之直接停止。我认为本题目的根本还是二叉树的遍历(前序遍历)加一个与target的判断。因为前序遍历本身还是属于DFS的一种，是深度优先，所以适合这种找路径的题目（自上而下）。综上，这道题目的最优解应该为：DFS递归+target目标值计算。具体代码见下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">item23</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; lists = <span class="keyword">new</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();<span class="comment">//放置所有路径</span></span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();<span class="comment">//放置某一条路径</span></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindPath(TreeNode root, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> lists;</span><br><span class="line">        &#125;</span><br><span class="line">        list.add(root.val);</span><br><span class="line">        target=target-root.val;</span><br><span class="line">        <span class="keyword">if</span>(target==<span class="number">0</span> &amp;&amp; root.left==<span class="keyword">null</span> &amp;&amp; root.right==<span class="keyword">null</span>)&#123;</span><br><span class="line">            lists.add(<span class="keyword">new</span> ArrayList&lt;Integer&gt;(list));</span><br><span class="line">            <span class="comment">//因为result.add(list)是把list这个对象的引用地址添加到result了，result中的元素就会共用list，</span></span><br><span class="line">            <span class="comment">// 而list是我们用来存放当前路径的地方，是一个容器，因此我们需要复制一份之后加入result数组中</span></span><br><span class="line">        &#125;</span><br><span class="line">        FindPath(root.left,target);</span><br><span class="line">        FindPath(root.right,target);</span><br><span class="line">        list.remove(list.size()-<span class="number">1</span>);<span class="comment">//就是一个容器，或者工具，盛满了当然要去除</span></span><br><span class="line">        <span class="comment">//因为当本次递归结束返回上一层的时候，我们已经遍历完这个节点的左右子树，也就是已经该树中可能存在的路径，</span></span><br><span class="line">        <span class="comment">// 再次返回上一层的时候要把这个节点除去，这样在遍历上一个节点的其他子树的时候遍历的结果才是对的</span></span><br><span class="line">        <span class="keyword">return</span> lists;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实，这道题的递归思路与回溯法相似，list会涉及到状态重置或者说是状态回溯，因为一条路径找完后需要回到上一个节点继续寻找，存在一个典型的回溯过程。</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/04/29/%E5%89%91%E6%8C%87offer-item24-%E6%89%BE%E5%87%BA%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E8%B7%AF%E5%BE%84%E4%B9%8B%E5%92%8C%E4%B8%BA%E7%9B%AE%E6%A0%87%E5%80%BC%E7%9A%84%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84/" data-id="ck9l95qxy0002b5td075ddmb3" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/04/29/%E5%89%91%E6%8C%87offer-item25-%E5%A4%8D%E5%88%B6%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            剑指offer系列----item25 复制复杂链表
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/04/29/%E5%89%91%E6%8C%87offer-item23-%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E6%95%B0%E7%BB%84%E6%98%AF%E5%90%A6%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">剑指offer系列----item23 判断一个数组是否为二叉查找树的后序遍历</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 Hogwarts library</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Hogwarts library"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script src="/js/ocean.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

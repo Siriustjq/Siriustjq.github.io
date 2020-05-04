@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+    <meta name="description" content="为保证浏览效果，请尽量使用Chrome">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    看懂Lambda表达式这一篇就够了 |
+    
+    Hogwarts library</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-看懂Lambda表达式这一篇就够了" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      看懂Lambda表达式这一篇就够了
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/05/04/%E7%9C%8B%E6%87%82Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="article-date">
+  <time datetime="2020-05-04T08:41:33.000Z" itemprop="datePublished">2020-05-04</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <hr>
+<p>author：Siriustjq</p>
+<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>关于lambda表达式，网上的资料不少，但是仔细看一看就会发现，写的良莠不齐，且大部分博文的表达较差，词不达意，所以这里自己进行一次总结，方便日后复习。</p>
+<h2 id="什么是Lambda表达式？"><a href="#什么是Lambda表达式？" class="headerlink" title="什么是Lambda表达式？"></a>什么是Lambda表达式？</h2><p>lambda表达式，是Java作为面向对象的编程语言在函数式编程方面的一些拓展和优点合并。<br><strong>Lambda 允许把函数（行为）作为一个方法的参数（函数作为参数传递进方法中）</strong>。在lambda表达式子出现之前，实现这种功能大部分时候是在依赖匿名内部类。而lambda表达式利用lambda操作符“-&gt;”实现了很多以前必须要匿名内部类才能实现的功能，并且极大地简化了代码的结构和复杂度。</p>
+<p>lambda操作符将整个lambda表达式分为了两部分，即箭头的左右：<br><strong>箭头左边表示lambda表达式的参数列表；<br>箭头右边则具体表示lambda表达式所要执行的功能，或者说是函数体。</strong><br>这里提前说明，lambda表达式是离不开接口的。见下面这个例子：</p>
+<p>多线程大家一定不陌生，创建一个线程无非有两种方法（不考虑线程池）：1.继承Thread类；2.实现Runable接口。实际的生产实践中自然是使用第二种方法更多，因为一个类只能有一个父类，但是却可以实现多个接口。那么下面使用第二种方法新建一个线程并且采用匿名内部类的方法实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"传统匿名内部类的实现方法"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，代码量还是蛮大的，当然比去实现一个Runable接口要简洁的多得多，如果想进一步简洁代码呢？那就用到了lambda表达式了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">new</span> Thread(()-&gt; System.out.println(<span class="string">"lambda表达式的实现方法"</span>)).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">test();</span><br><span class="line">test1();</span><br><span class="line"></span><br><span class="line"><span class="comment">//结果如下：</span></span><br><span class="line">传统匿名内部类的实现方法</span><br><span class="line">lambda表达式的实现方法</span><br></pre></td></tr></table></figure>
+<p>可以看到短短一条语句就完全替换了之前的匿名内部类，效率确实有一些高~<br>通过这个例子，能更好的理解lambda表达式离不开接口。通过上面例子可以大致看出lambda表达式的一些端倪了，让我们来总结一下：<br><strong>-&gt;lambda表达式的左边为形参，注意形参一定要和lambda表达式所关联的接口的抽象方法的形参保持一致，不然会报错！</strong>这里很多博文的总结一直有问题，所以重申一下。<br>-&gt;lambda表达式的右边为方法的重写，谁的方法？自然也就是lambda表达式所关联接口的方法的重写，在这里你可以为所欲为的调用其他类的方法进行重写，<strong>但是一定要注意返回值务必要和原生的接口方法的返回值一致</strong>。针对以上两点，有一句很绕的官方解释：<strong>“实现抽象方法的参数列表和返回值类型，必须与方法引用的方法的参数列表和返回值类型保持一致”</strong>。建议还是按照我的解释来理解容易一些。</p>
+<p>一个例子可能还是太空洞了，请看下面这个例子，让集合list按照我们所制定的规则进行排序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">list.sort((s1,s2)-&gt;(s1+s2).compareTo(s2+s1));</span><br></pre></td></tr></table></figure>
+<p>乍一看这一句会云里雾里，我们来看看list集合的sort方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparator&lt;? <span class="keyword">super</span> E&gt; c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> expectedModCount = modCount;</span><br><span class="line">    Arrays.sort((E[]) elementData, <span class="number">0</span>, size, c);<span class="comment">//调用的是Arrays.sort()方法</span></span><br><span class="line">    <span class="keyword">if</span> (modCount != expectedModCount) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ConcurrentModificationException();</span><br><span class="line">    &#125;</span><br><span class="line">    modCount++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>明显调用的是Arrays.sort()方法，我们继续深入：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">sort</span><span class="params">(T[] a, <span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">                            Comparator&lt;? <span class="keyword">super</span> T&gt; c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="keyword">null</span>) &#123;</span><br><span class="line">        sort(a, fromIndex, toIndex);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        rangeCheck(a.length, fromIndex, toIndex);</span><br><span class="line">        <span class="keyword">if</span> (LegacyMergeSort.userRequested)</span><br><span class="line">            legacyMergeSort(a, fromIndex, toIndex, c);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            TimSort.sort(a, fromIndex, toIndex, c, <span class="keyword">null</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>继续进入legacyMergeSort方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">legacyMergeSort</span><span class="params">(T[] a, <span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">                                        Comparator&lt;? <span class="keyword">super</span> T&gt; c)</span> </span>&#123;</span><br><span class="line">    T[] aux = copyOfRange(a, fromIndex, toIndex);</span><br><span class="line">    <span class="keyword">if</span> (c==<span class="keyword">null</span>)</span><br><span class="line">        mergeSort(aux, a, fromIndex, toIndex, -fromIndex);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        mergeSort(aux, a, fromIndex, toIndex, -fromIndex, c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>继续深入：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(Object[] src,</span></span></span><br><span class="line"><span class="function"><span class="params">                              Object[] dest,</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">int</span> low, <span class="keyword">int</span> high, <span class="keyword">int</span> off,</span></span></span><br><span class="line"><span class="function"><span class="params">                              Comparator c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> length = high - low;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Insertion sort on smallest arrays</span></span><br><span class="line">    <span class="keyword">if</span> (length &lt; INSERTIONSORT_THRESHOLD) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=low; i&lt;high; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=i; j&gt;low &amp;&amp; c.compare(dest[j-<span class="number">1</span>], dest[j])&gt;<span class="number">0</span>; j—)<span class="comment">//终于逮到你了</span></span><br><span class="line">                swap(dest, j, j-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Recursively sort halves of dest into src</span></span><br><span class="line">    <span class="keyword">int</span> destLow  = low;</span><br><span class="line">    <span class="keyword">int</span> destHigh = high;</span><br><span class="line">    low  += off;</span><br><span class="line">    high += off;</span><br><span class="line">    <span class="keyword">int</span> mid = (low + high) &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">    mergeSort(dest, src, low, mid, -off, c);</span><br><span class="line">    mergeSort(dest, src, mid, high, -off, c);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// If list is already sorted, just copy from src to dest.  This is an</span></span><br><span class="line">    <span class="comment">// optimization that results in faster sorts for nearly ordered lists.</span></span><br><span class="line">    <span class="keyword">if</span> (c.compare(src[mid-<span class="number">1</span>], src[mid]) &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">       System.arraycopy(src, low, dest, destLow, length);</span><br><span class="line">       <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Merge sorted halves (now in src) into dest</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = destLow, p = low, q = mid; i &lt; destHigh; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (q &gt;= high || p &lt; mid &amp;&amp; c.compare(src[p], src[q]) &lt;= <span class="number">0</span>)</span><br><span class="line">            dest[i] = src[p++];</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            dest[i] = src[q++];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>终于我们发现在这里会调用Comparator内的方法compare方法，而我们已经将其按照我们所需要实现的逻辑进行了重写，也就是在lambda表达式的右边的式子：(s1+s2).compareTo(s2+s1)；<br>在理解了上面lambda表达式的逻辑之后，马上我们可以再利用传统的匿名内部类对上述代码重构如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">list.sort(<span class="keyword">new</span> Comparator()&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Object o1, Object o2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ((String)o1+(String)o2).compareTo((String)o2+(String)o1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>二者实现的功能完全一致，均能让集合list按照我们所指定的逻辑进行排序。</p>
+<h2 id="写在最后："><a href="#写在最后：" class="headerlink" title="写在最后："></a>写在最后：</h2><p>一句话总结lambda表达式———它可以让我们更简便更直接的去实现一个接口，并重写其方法。</p>
+<h2 id="PS："><a href="#PS：" class="headerlink" title="PS："></a>PS：</h2><p>本篇博客主要是以分析lambda的含义与典型作用方法为主，具体的表达式语法可参考：<a href="https://www.runoob.com/java/java8-lambda-expressions.html" target="_blank" rel="noopener">https://www.runoob.com/java/java8-lambda-expressions.html</a><br> <a href="https://www.cnblogs.com/nnxud/p/9827704.html" target="_blank" rel="noopener">https://www.cnblogs.com/nnxud/p/9827704.html</a><br> 以上两篇博客说的都比较详细了，这里记录一下也方便自己日后及时查看复习。</p>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://yoursite.com/2020/05/04/%E7%9C%8B%E6%87%82Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%BF%99%E4%B8%80%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/" data-id="ck9s8iq2r0006b5tdbzcx0t8o" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/05/04/%E5%89%91%E6%8C%87offer%E7%B3%BB%E5%88%97-item28-%E6%95%B0%E7%BB%84%E4%B8%AD%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            剑指offer系列----item28 数组中超过一半的数
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/04/29/%E5%89%91%E6%8C%87offer-item27-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97%EF%BC%88%E7%A9%B6%E6%9E%81%E6%97%A0%E6%95%8C%E5%A4%9A%E7%A7%8Djava%E5%9B%9E%E6%BA%AF-%E5%89%AA%E6%9E%9D%E5%81%9A%E6%B3%95%EF%BC%89/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">剑指offer系列----item27 字符串的排列（究极无敌多种java回溯+剪枝做法）</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 Hogwarts library</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Hogwarts library"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script src="/js/ocean.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"live2d-widget-model-tororo"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
